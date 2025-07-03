@@ -44,7 +44,8 @@ function SignIn() {
       return
     }
 
-    setTimeout(() => {
+    try {
+      setTimeout(() => {
       if (
         isTestAccount(username, password)
       ) {
@@ -60,6 +61,11 @@ function SignIn() {
         })
       }
     }, 300)
+    } catch (error) {
+      toast.error('Unable to Login!',{
+          position: 'top-right'
+      });
+    }
   }
 
   const handleFormUpdate = _debounce((name: string, value: string) => {
