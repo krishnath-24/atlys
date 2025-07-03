@@ -12,12 +12,8 @@ import {debounce as _debounce} from 'lodash';
 
 function SignIn() {
 
-
   const {showSignInDialog} = useSelector((state: RootState) => state.authDialog);
 
-
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -36,8 +32,6 @@ function SignIn() {
     dispatch(closeSignInDialog())
   }
 
-  
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -49,7 +43,6 @@ function SignIn() {
         })
       return
     }
-
 
     setTimeout(() => {
       if (
@@ -66,7 +59,7 @@ function SignIn() {
           position: 'top-right'
         })
       }
-    }, 800)
+    }, 300)
   }
 
   const handleFormUpdate = _debounce((name: string, value: string) => {
