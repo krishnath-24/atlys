@@ -70,7 +70,6 @@ function SignIn() {
   }
 
   const handleFormUpdate = _debounce((name: string, value: string) => {
-    console.log('handleFormUpdate', name, value)
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -97,6 +96,7 @@ function SignIn() {
                   name='email'
                   placeholder="Enter your email or username"
                   onChange={(e) => handleFormUpdate(e.target.name, e.target.value)}
+                  required
                 />
               </div>
     
@@ -109,6 +109,7 @@ function SignIn() {
                   placeholder="Enter your password"
                   minLength={8}
                   onChange={(e) => handleFormUpdate(e.target.name, e.target.value)}
+                  required
                 />
               </div>
     
