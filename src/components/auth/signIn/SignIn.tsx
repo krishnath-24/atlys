@@ -76,7 +76,7 @@ function SignIn() {
   }, 250)
 
     return (
-        <div className="bg-gray-200  p-2 relative flex flex-col items-center justify-center min-w-[430px] max-w-[600px] rounded-3xl">
+        <div className="bg-gray-200 select-none  p-2 relative flex flex-col items-center justify-center min-w-[430px] max-w-[600px] rounded-3xl">
           <div className="flex flex-col items-center bg-opacity-90 bg-white shadow-md py-8 px-5 w-full rounded-3xl ">
             <div className="flex flex-col items-center mb-8 w-[80%]">
               <div className="text-lg mb-3 p-2 bg-gray-100 text-gray-700 text-sm rounded-full text-center flex items-center justify-center"><LogIn size={24}/></div>
@@ -124,7 +124,7 @@ function SignIn() {
           </div>
             <div  className="my-3 border-none  text-center text-sm text-gray-500">
               Do not have an account?{" "}
-              <a href="#" onClick={handleSignUp} aria-label='sign up' className="text-indigo-600 text-sm hover:underline font-medium">
+              <a onClick={handleSignUp} aria-label='sign up' className="text-indigo-600 text-sm hover:underline font-medium cursor-pointer">
                 Sign Up
               </a>
             </div>

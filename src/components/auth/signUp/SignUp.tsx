@@ -1,15 +1,17 @@
 import { LogIn } from "lucide-react";
 import React, { useState } from "react";
 import { openSignInDialog, closeSignUpDialog } from "../../../slices/uiSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast'
 import { setUser } from "../../../slices/authSlice";
 import {debounce as _debounce} from 'lodash';
+import { RootState } from "../../../store/store";
 
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const {showSignUpDialog} = useSelector((state: RootState) => state.authDialog);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -54,8 +56,13 @@ export default function SignUp() {
   };
 
   const handleSignIn = () => {
-    dispatch(openSignInDialog());
-    dispatch(closeSignUpDialog());
+    if(showSignUpDialog) {
+       dispatch(openSignInDialog());
+       dispatch(closeSignUpDialog());
+    } else {
+      navigate('/login');
+      return;
+    }
   };
 
   return (
