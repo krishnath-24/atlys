@@ -1,5 +1,6 @@
 import { Heart, MessageSquareText, Send } from "lucide-react";
 import { Post } from "../../../types/posts.types";
+import { formatCreatedAt } from "../../../utils/common";
 
 type PostCardProps = {
   post: Post;
@@ -7,7 +8,9 @@ type PostCardProps = {
 }
 export default function PostCard({ post, featureNotImplemented }: PostCardProps) {
 
-  const { content, emoji, avatar, username } = post;
+  
+  const { content, emoji, avatar, username, createdAt } = post;
+
     return (
       <div className="flex flex-col justify-evenly bg-gray-100 border rounded-xl p-2 shadow-sm mb-4 gap-3">
         <div className="bg-white p-2 rounded-xl">
@@ -15,7 +18,7 @@ export default function PostCard({ post, featureNotImplemented }: PostCardProps)
             <img src={avatar} alt={username} className="w-9 h-9 rounded-lg" />
             <div>
               <p className="font-semibold text-sm">{username}</p>
-              <p className="text-xs text-gray-400">5 mins ago</p>
+              <p className="text-xs text-gray-400">{formatCreatedAt(createdAt)}</p>
             </div>
           </div>
           <div className="flex gap-3 items-center mb-2">
@@ -24,10 +27,10 @@ export default function PostCard({ post, featureNotImplemented }: PostCardProps)
           </div>
         
         </div>
-        <div className="flex gap-4 items-center text-gray-600 text-sm mb-2 pl-2">
-          <button onClick={featureNotImplemented}><Heart  size={18}/></button>
-          <button onClick={featureNotImplemented}><MessageSquareText className="scale-x-[-1]" size={18} /></button>
-          <button onClick={featureNotImplemented}><Send size={18}/> </button>
+        <div className="flex gap-4 items-center text-gray-600 text-sm mb-2 pl-2" onClick={featureNotImplemented}>
+          <button><Heart  size={18}/></button>
+          <button><MessageSquareText className="scale-x-[-1]" size={18} /></button>
+          <button><Send size={18}/> </button>
         </div>
       </div>
     )

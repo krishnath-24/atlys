@@ -3,21 +3,29 @@ import { LogIn } from 'lucide-react';
 import toast from 'react-hot-toast'
 import {useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../../slices/authSlice';
+import { setUser } from '../../../slices/authSlice';
 import { closeSignInDialog, openSignUpDialog} from '../../../slices/uiSlice';
 import { RootState } from '../../../store/store';
+import { isTestAccount } from '../../../utils/common';
+import {debounce as _debounce} from 'lodash';
 
 
 function SignIn() {
 
 
-  const {showSignUpDialog, showSignInDialog} = useSelector((state: RootState) => state.authDialog);
+  const {showSignInDialog} = useSelector((state: RootState) => state.authDialog);
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
+
 
   const handleSignUp = () => {
     if(!showSignInDialog) {
@@ -28,60 +36,67 @@ function SignIn() {
     dispatch(closeSignInDialog())
   }
 
-  const isTestAccount = (username: string, password: string) => {
-    return( username === 'demo@example.com' && password === 'password123') ||
-           (username === 'test@user.com' && password === 'testpass');
-    
-  }
-
-  const isDefaultUser = (username: string, password: string) => {
-    return false
-  }
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    const { email: username, password } = formData;
+
     if (!username || !password) {
-      toast.error('Please enter both email and password')
+      toast.error('Please enter both email and password',{
+          position: 'top-right'
+        })
       return
     }
 
 
     setTimeout(() => {
       if (
-        isTestAccount(username, password) ||
-        isDefaultUser(username, password)
+        isTestAccount(username, password)
       ) {
-         dispatch(login({ username, password }))
-        toast.success('Signed in successfully!')
+         dispatch(setUser({ username }))
+        toast.success('Signed in successfully!', {
+          position: 'top-right'
+        })
         dispatch(closeSignInDialog())
         navigate('/feed')
       } else {
-        toast.error('Invalid credentials. Please try again.')
+        toast.error('Invalid credentials. Please try again.',{
+          position: 'top-right'
+        })
       }
     }, 800)
   }
 
+  const handleFormUpdate = _debounce((name: string, value: string) => {
+    console.log('handleFormUpdate', name, value)
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }, 250)
+
     return (
-        <div className="bg-gray-200  p-2 relative flex flex-col items-center justify-center min-w-[450px] max-w-[600px] rounded-3xl">
-          <div className="flex flex-col items-center bg-opacity-90 bg-white shadow-md p-8 w-full rounded-3xl ">
-            <div className="flex flex-col items-center mb-6 w-[80%]">
-              <div className="text-lg mb-3 p-2 bg-gray-100 text-gray-600 text-sm rounded-full text-center flex items-center justify-center"><LogIn size={18}/></div>
-              <h2 className="text-mg font-semibold text-center">Sign in to continue</h2>
+        <div className="bg-gray-200  p-2 relative flex flex-col items-center justify-center min-w-[430px] max-w-[600px] rounded-3xl">
+          <div className="flex flex-col items-center bg-opacity-90 bg-white shadow-md py-8 px-5 w-full rounded-3xl ">
+            <div className="flex flex-col items-center mb-8 w-[80%]">
+              <div className="text-lg mb-3 p-2 bg-gray-100 text-gray-700 text-sm rounded-full text-center flex items-center justify-center"><LogIn size={24}/></div>
+              <h2 className="text-lg font-semibold text-center">Sign in to continue</h2>
               <p className="text-xs text-gray-500 text-center mb-5 font-light">
                 Sign in to access all the features on this app
               </p>
             </div>
     
-            <form className="space-y-4 mb-0 w-[90%]">
+            <form className="space-y-4 mb-5 w-[90%]">
               <div>
                 <label className="block text-xs font-medium mb-1">Email or username</label>
                 <input
                   className="rounded-lg text-xs font-light w-full px-4 py-3 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   type="text"
+                  name='email'
                   placeholder="Enter your email or username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  onChange={(e) => handleFormUpdate(e.target.name, e.target.value)}
                 />
               </div>
     
@@ -90,9 +105,10 @@ function SignIn() {
                 <input
                   className="rounded-lg   text-xs font-light w-full px-4 py-3 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   type="password"
+                  name='password'
                   placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  minLength={8}
+                  onChange={(e) => handleFormUpdate(e.target.name, e.target.value)}
                 />
               </div>
     

@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast'
 import { setUser } from "../../../slices/authSlice";
+import {debounce as _debounce} from 'lodash';
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -16,12 +17,12 @@ export default function SignUp() {
     repeatPassword: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange =  _debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
-  };
+  }, 250);
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,12 +30,16 @@ export default function SignUp() {
     const { email, password, repeatPassword } = formData;
 
     if (!email || !password || !repeatPassword) {
-      toast.error("All fields are required");
+      toast.error("All fields are required",{
+          position: 'top-right'
+        });
       return;
     }
 
     if (password !== repeatPassword) {
-      toast.error("Passwords do not match");
+      toast.error("Passwords do not match",{
+        position: 'top-right'
+      });
       return;
     }
     const user = { username: email };
@@ -42,7 +47,9 @@ export default function SignUp() {
     dispatch(setUser(user)); 
     dispatch(closeSignUpDialog());
 
-    toast.success("Account created successfully");
+    toast.success("Account created successfully",{
+      position: 'top-right'
+    });
     navigate("/feed");
   };
 
@@ -52,21 +59,21 @@ export default function SignUp() {
   };
 
   return (
-    <div className="select-none bg-gray-200 p-2 relative flex flex-col items-center justify-center min-w-[450px] max-w-[600px] rounded-3xl">
-      <div className="flex flex-col items-center bg-opacity-90 bg-white shadow-md p-8 w-full rounded-3xl">
-        <div className="flex flex-col items-center mb-6">
+    <div className="select-none bg-gray-200 p-2 relative flex flex-col items-center justify-center min-w-[430px] max-w-[600px] rounded-3xl">
+      <div className="flex flex-col items-center bg-opacity-90 bg-white shadow-md py-8 px-5 w-full rounded-3xl">
+        <div className="flex flex-col items-center mb-6 ">
           <div className="text-lg mb-3 p-2 bg-gray-100 text-gray-600 text-sm rounded-full text-center flex items-center justify-center">
             <LogIn size={18} />
           </div>
-          <h2 className="text-sm font-semibold text-center">
+          <h2 className="text-md font-semibold text-center">
             Create an account to continue
           </h2>
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-gray-500 text-center mb-5 font-light">
             Create an account to access all the features on this app
           </p>
         </div>
 
-        <form className="space-y-4 w-full p-3" onSubmit={handleSignUp}>
+        <form className="space-y-4 w-[90%]" onSubmit={handleSignUp}>
           <div>
             <label className="block text-xs font-medium mb-1">
               Email or username
@@ -74,7 +81,6 @@ export default function SignUp() {
             <input
               type="text"
               name="email"
-              value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email or username"
               className="rounded-lg text-xs font-light w-full px-4 py-3 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -86,8 +92,8 @@ export default function SignUp() {
             <input
               type="password"
               name="password"
-              value={formData.password}
               onChange={handleChange}
+              minLength={8}
               placeholder="Enter your password"
               className="rounded-lg text-xs font-light w-full px-4 py-3 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
@@ -100,7 +106,7 @@ export default function SignUp() {
             <input
               type="password"
               name="repeatPassword"
-              value={formData.repeatPassword}
+              minLength={8}
               onChange={handleChange}
               placeholder="Enter your password again"
               className="rounded-lg text-xs font-light w-full px-4 py-3 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"

@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import EmojiPicker, {EmojiClickData} from 'emoji-picker-react';
+import {EmojiClickData} from 'emoji-picker-react';
 import { Trash2, Plus, Mic, Video,Smile, SendHorizontal, Slash, Quote, CodeXml, BoldIcon, ItalicIcon, UnderlineIcon, List, ListOrdered } from "lucide-react"
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux'
 import { addPost } from '../../../slices/postSlice'
 import { RootState } from "../../../store/store";
 import toast from 'react-hot-toast'
-
+const EmojiPicker = React.lazy(() => import('emoji-picker-react'));
 
 type PostCreateProps = {
   onClick: () => void;
@@ -33,11 +33,15 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
 
   const handlePostCreate = async () => {
     if(!selectedEmoji) {
-      toast.error("Emoji is required!");
+      toast.error("Emoji is required!",{
+          position: 'top-right'
+        });
       return;
     }
     if(!postContent?.trim()) {
-      toast.error("Post content is required!");
+      toast.error("Post content is required!",{
+          position: 'top-right'
+        });
       return;
     }
     try {
@@ -51,16 +55,20 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
       }
 
       dispatch(addPost(postData));
-      toast.success("Post created successfully!");
+      toast.success("Post created successfully!", {
+          position: 'top-right'
+        });
 
       setPostContent('');
       setSelectedEmoji('');
     } catch(error) {
-      toast.error("Failed to create post. Please try again.");
+      toast.error("Failed to create post. Please try again.",{
+          position: 'top-right'
+        });
     }
   }
   return (
-    <div className="p-2 bg-gray-100 rounded-2xl mb-6" onClick={onClick}>
+    <div className="p-2 bg-gray-100 rounded-2xl mb-6 select-none" onClick={onClick}>
 
       <div className="w-full max-w-2xl mx-auto bg-gray-50 rounded-xl shadow-md bg-white  ">
       <div className="p-2 space-y-3">
@@ -68,20 +76,18 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
           <div className="flex items-center gap-5 bg-gray-100 rounded-xl">
            
             <div className="flex gap-2 text-sm p-1">
-              <div className="gap-3 flex items-center">
+              <div className="flex">
                  <select onClick={featureNotImplemented} className="text-sm px-2 py-2 rounded-xl mr-3">
                     <option>Paragraph</option>
                   </select>
-                <button onClick={featureNotImplemented} className="hover:bg-white p-2 rounded-lg"><BoldIcon size={18} /></button>
-                <button onClick={featureNotImplemented} className="italic hover:bg-white p-2 rounded-lg"><ItalicIcon size={18} /></button>
-                <button onClick={featureNotImplemented} className="underline hover:bg-white p-2 rounded-lg"><UnderlineIcon size={18} /></button>
+                <button onClick={featureNotImplemented} className="hover:bg-white p-2 rounded-lg"><BoldIcon size={20} /></button>
+                <button onClick={featureNotImplemented} className="italic hover:bg-white p-2 rounded-lg"><ItalicIcon size={20} /></button>
+                <button onClick={featureNotImplemented} className="underline hover:bg-white p-2 rounded-lg"><UnderlineIcon size={20} /></button>
                 </div>
-                <button><Slash size={20} className="rounded rotate-[-45deg] p-1" /></button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 border-l border-r px-2">
                   <button onClick={featureNotImplemented} className=" hover:bg-white p-2 rounded-lg"><List size={24} className="rounded p-1" /></button>
                   <button onClick={featureNotImplemented} className=" hover:bg-white p-2 rounded-lg"><ListOrdered size={24} className=" rounded p-1" /></button>
                 </div>
-                <button onClick={featureNotImplemented}><Slash size={20} className="rounded rotate-[-45deg] p-1" /></button>
                 <button onClick={featureNotImplemented} className=" hover:bg-white p-2 rounded-lg"><Quote size={24} className="rounded p-1" /></button>
                 <button onClick={featureNotImplemented} className=" hover:bg-white p-2 rounded-lg"><CodeXml size={24} className="rounded p-1" /></button>
             </div>
@@ -102,7 +108,7 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
             rows={4}
             autoFocus
           />
-          <div className="absolute top-5 left-5">
+          <div className="absolute top-7 z-50">
           <EmojiPicker  open={showEmojiPicker} searchDisabled  onEmojiClick={handleEmojiSelect}/>
         </div>
        </div>

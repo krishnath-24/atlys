@@ -10,7 +10,7 @@ export default function SignInDialog() {
 
   if (!showSignInDialog) return null;
 
-  return <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+  return <div className="sign-in-dialog fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
         <SignIn />
     </div>
 }

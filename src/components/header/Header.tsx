@@ -7,6 +7,7 @@ import { RootState } from '../../store/store'
 export default function Header() {
   const dispatch = useDispatch()
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   
   const navigate = useNavigate();
@@ -28,10 +29,12 @@ export default function Header() {
 
         <button onClick={navigateToFeed}>Atlys</button>
         
-        {onFeedPage ? <button aria-label="logout" className="text-sm flex items-center gap-1" onClick={isLoggedIn ? handleLogout : navigateToLogin}>
-          {isLoggedIn ? 'Logout' : 'Login'}
-          {isLoggedIn ? <LogOut size={18}/> : <LogIn size={18}/>} </button> :<button aria-label="home" className="text-sm font-medium" onClick={navigateToFeed}>Go back home</button>
+        <div className="flex gap-2 ">
+          {onFeedPage ? <button aria-label="logout" className="text-sm flex items-center gap-1 text-gray-600 hover:text-black" onClick={isLoggedIn ? handleLogout : navigateToLogin}>
+          {isLoggedIn ? <><div className="text-sm text-muted mr-3">{user?.username}</div> Logout <LogOut size={18}/></> : <>Login <LogIn size={18}/></>}
+           </button> :<button aria-label="home" className="text-sm font-medium" onClick={navigateToFeed}>Go back home</button>
         } 
+        </div>
         
       </header>
     )
