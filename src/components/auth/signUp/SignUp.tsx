@@ -1,5 +1,5 @@
-import { LogIn } from "lucide-react";
 import React, { useState } from "react";
+import { LogIn } from "lucide-react";
 import { openSignInDialog, closeSignUpDialog } from "../../../slices/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,13 +7,14 @@ import toast from 'react-hot-toast'
 import { setUser } from "../../../slices/authSlice";
 import {debounce as _debounce} from 'lodash';
 import { RootState } from "../../../store/store";
+import type { SignUpFormType } from "../../../types/auth.types";
 
 export default function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {showSignUpDialog} = useSelector((state: RootState) => state.authDialog);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignUpFormType>({
     email: "",
     password: "",
     repeatPassword: "",
@@ -72,7 +73,7 @@ export default function SignUp() {
           <div className="text-lg mb-3 p-2 bg-gray-100 text-gray-600 text-sm rounded-full text-center flex items-center justify-center">
             <LogIn size={18} />
           </div>
-          <h2 className="text-md font-semibold text-center">
+          <h2 className="text-lg font-semibold text-center">
             Create an account to continue
           </h2>
           <p className="text-xs text-gray-500 text-center mb-5 font-light">
@@ -86,7 +87,7 @@ export default function SignUp() {
               Email or username
             </label>
             <input
-              type="text"
+              type="email"
               name="email"
               onChange={handleChange}
               placeholder="Enter your email or username"

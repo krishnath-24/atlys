@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import PostComposer from './post/Create'
 import PostCard from './post/Card'
 import SignInDialog from '../auth/signIn/SignInDialog';
@@ -7,7 +8,6 @@ import { useDispatch } from 'react-redux'
 import { openSignInDialog } from '../../slices/uiSlice'
 import { toast } from 'react-hot-toast'
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback } from 'react';
 
 export default function Feed() {
   const posts = useSelector((state: RootState) => state.posts.posts)

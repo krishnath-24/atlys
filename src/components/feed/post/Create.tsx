@@ -1,23 +1,19 @@
 import React, { useState } from "react"
 import {EmojiClickData} from 'emoji-picker-react';
-import { Trash2, Plus, Mic, Video,Smile, SendHorizontal, Slash, Quote, CodeXml, BoldIcon, ItalicIcon, UnderlineIcon, List, ListOrdered } from "lucide-react"
-import { nanoid } from 'nanoid';
+import { Trash2, Plus, Mic, Video,Smile, SendHorizontal, Quote, CodeXml, BoldIcon, ItalicIcon, UnderlineIcon, List, ListOrdered } from "lucide-react"
 import { useDispatch, useSelector } from 'react-redux'
 import { addPost } from '../../../slices/postSlice'
 import { RootState } from "../../../store/store";
+import { nanoid } from 'nanoid';
 import toast from 'react-hot-toast'
+import type { CreateProps } from "../../../types/posts.types";
 const EmojiPicker = React.lazy(() => import('emoji-picker-react'));
 
-type PostCreateProps = {
-  onClick: () => void;
-  featureNotImplemented?: () => void;
-}
+export default function PostComposer({onClick, featureNotImplemented}: CreateProps) {
 
-export default function PostComposer({onClick, featureNotImplemented}: PostCreateProps) {
-
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [selectedEmoji, setSelectedEmoji] = useState('');
-  const [postContent, setPostContent] = useState('');
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const [selectedEmoji, setSelectedEmoji] = useState<string>('');
+  const [postContent, setPostContent] = useState<string>('');
 
   const dispatch = useDispatch();
 
@@ -29,7 +25,10 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
     setShowEmojiPicker(false);
   }
 
-
+  const resetFormData = () => {
+    setPostContent('');
+    setSelectedEmoji('');
+  }
 
   const handlePostCreate = async () => {
     if(!selectedEmoji) {
@@ -56,15 +55,14 @@ export default function PostComposer({onClick, featureNotImplemented}: PostCreat
 
       dispatch(addPost(postData));
       toast.success("Post created successfully!", {
-          position: 'top-right'
-        });
+        position: 'top-right'
+      });
 
-      setPostContent('');
-      setSelectedEmoji('');
+      resetFormData();
     } catch(error) {
       toast.error("Failed to create post. Please try again.",{
-          position: 'top-right'
-        });
+        position: 'top-right'
+      });
     }
   }
   return (

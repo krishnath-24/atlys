@@ -8,13 +8,14 @@ import { closeSignInDialog, openSignUpDialog} from '../../../slices/uiSlice';
 import { RootState } from '../../../store/store';
 import { isTestAccount } from '../../../utils/common';
 import {debounce as _debounce} from 'lodash';
+import type { SignInFormType } from '../../../types/auth.types';
 
 
 function SignIn() {
 
   const {showSignInDialog} = useSelector((state: RootState) => state.authDialog);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SignInFormType>({
     email: "",
     password: "",
   });
@@ -91,7 +92,7 @@ function SignIn() {
                 <label className="block text-xs font-medium mb-1">Email or username</label>
                 <input
                   className="rounded-lg text-xs font-light w-full px-4 py-3 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                  type="text"
+                  type="email"
                   name='email'
                   placeholder="Enter your email or username"
                   onChange={(e) => handleFormUpdate(e.target.name, e.target.value)}

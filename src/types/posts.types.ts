@@ -6,3 +6,13 @@ export interface Post {
   username: string;
   avatar: string;
 }
+
+export type CardProps = {
+  post: Post;
+  featureNotImplemented?: () => void;
+}
+
+export type CreateProps = {
+  onClick: () => void;
+  featureNotImplemented?: () => void;
+}

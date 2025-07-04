@@ -1,12 +1,9 @@
 import { Heart, MessageSquareText, Send } from "lucide-react";
-import { Post } from "../../../types/posts.types";
 import { formatCreatedAt } from "../../../utils/common";
+import type { CardProps } from "../../../types/posts.types";
 
-type PostCardProps = {
-  post: Post;
-  featureNotImplemented?: () => void;
-}
-export default function PostCard({ post, featureNotImplemented }: PostCardProps) {
+
+export default function PostCard({ post, featureNotImplemented }: CardProps) {
 
   
   const { content, emoji, avatar, username, createdAt } = post;
