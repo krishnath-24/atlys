@@ -1,2 +1,42 @@
 # atlys
 Mini app for atlys
+
+## 🛠️ Features
+
+- Sign In / Sign Up modal with animation
+- Post creation and listing with animated transitions
+- State management via Redux
+- Responsive UI with Tailwind CSS
+
+## 📸 Screenshots / Link
+
+- Live app: [https://atlys-fe-app.netlify.app/](https://atlys-fe-app.netlify.app/)
+
+- ![Sign in](image.png)
+- ![Sign up](image-2.png)
+- ![Feed](image-1.png)
+- ![Sign in page](image-3.png)
+- ![Sign up page](image-4.png)
+
+## 🧑‍💻 Getting Started
+
+1. **Clone the repository**  
+   `git clone https://github.com/your-username/atlys-mini-app.git`
+
+2. **Install dependencies**  
+   `npm install`
+
+3. **Run the development server**  
+   `npm run dev`
+
+4. Visit `http://localhost:3000` in your browser.
+
+
+## 📦 Tech Stack
+
+- React
+- Redux Toolkit
+- Tailwind CSS
+- Framer Motion
+- Emoji Picker
+- react toast
