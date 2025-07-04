@@ -33,7 +33,7 @@ export default function Feed() {
   }, [isLoggedIn]);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6" aria-live='polite'>
+    <div className="max-w-2xl mx-auto px-4 py-6" aria-live='polite' onClick={checkIfLoggedIn}>
       <PostComposer onClick={checkIfLoggedIn} featureNotImplemented={featureNotImplemented} />
       <AnimatePresence initial={false}>
         {
