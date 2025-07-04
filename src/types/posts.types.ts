@@ -10,6 +10,7 @@ export interface Post {
 export type CardProps = {
   post: Post;
   featureNotImplemented?: () => void;
+  onClick: () => void;
 }
 
 export type CreateProps = {

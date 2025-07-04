@@ -27,12 +27,18 @@ function SignIn() {
 
 
   const handleSignUp = () => {
+    console.log('handleSignUp called');
     if(!showSignInDialog) {
       navigate('/signup');
+      console.log('Navigating to /signup');
       return;
     }
-    dispatch(openSignUpDialog())
-    dispatch(closeSignInDialog())
+    else {
+      console.log('Dispatching openSignUpDialog' );
+      
+      dispatch(openSignUpDialog())
+      dispatch(closeSignInDialog())
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

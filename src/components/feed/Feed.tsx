@@ -33,7 +33,7 @@ export default function Feed() {
   }, [isLoggedIn]);
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6" aria-live='polite' onClick={checkIfLoggedIn}>
+    <div className="max-w-2xl mx-auto px-4 py-6" aria-live='polite'>
       <PostComposer onClick={checkIfLoggedIn} featureNotImplemented={featureNotImplemented} />
       <AnimatePresence initial={false}>
         {
@@ -45,7 +45,7 @@ export default function Feed() {
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-              <PostCard key={i} post={post} featureNotImplemented={featureNotImplemented} />
+              <PostCard onClick={checkIfLoggedIn} key={i} post={post} featureNotImplemented={featureNotImplemented} />
             </motion.div>
           ))
         }

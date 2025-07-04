@@ -3,13 +3,13 @@ import { formatCreatedAt } from "../../../utils/common";
 import type { CardProps } from "../../../types/posts.types";
 
 
-export default function PostCard({ post, featureNotImplemented }: CardProps) {
+export default function PostCard({ post, featureNotImplemented, onClick }: CardProps) {
 
   
   const { content, emoji, avatar, username, createdAt } = post;
 
     return (
-      <div className="flex flex-col justify-evenly bg-gray-100 border rounded-xl p-2 shadow-sm mb-4 gap-3">
+      <div className="flex flex-col justify-evenly bg-gray-100 border rounded-xl p-2 shadow-sm mb-4 gap-3" onClick={onClick}>
         <div className="bg-white p-2 rounded-xl">
           <div className="flex items-center gap-3 mb-2">
             <img src={avatar} alt={username} className="w-9 h-9 rounded-lg" />
