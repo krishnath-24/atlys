@@ -27,15 +27,11 @@ function SignIn() {
 
 
   const handleSignUp = () => {
-    console.log('handleSignUp called');
     if(!showSignInDialog) {
       navigate('/signup');
-      console.log('Navigating to /signup');
       return;
     }
-    else {
-      console.log('Dispatching openSignUpDialog' );
-      
+    else {      
       dispatch(openSignUpDialog())
       dispatch(closeSignInDialog())
     }
