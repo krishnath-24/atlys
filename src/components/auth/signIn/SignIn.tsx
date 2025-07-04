@@ -42,7 +42,7 @@ function SignIn() {
 
     if (!username || !password) {
       toast.error('Please enter both email and password',{
-          position: 'top-right'
+          position: 'top-center'
         })
       return
     }
@@ -54,21 +54,22 @@ function SignIn() {
       ) {
          dispatch(setUser({ username }))
         toast.success('Signed in successfully!', {
-          position: 'top-right'
+          position: 'top-center'
         })
         dispatch(closeSignInDialog())
         navigate('/feed')
       } else {
         toast.error('Invalid credentials. Please try again.',{
-          position: 'top-right'
+          position: 'top-center'
         })
       }
       setIsLoading(false);
     }, 500)
     } catch (error) {
       toast.error('Unable to Login!',{
-          position: 'top-right'
+          position: 'top-center'
       });
+      setIsLoading(false);
     }
   }
 
@@ -77,7 +78,7 @@ function SignIn() {
       ...prev,
       [name]: value,
     }))
-  }, 250)
+  }, 100)
 
     return (
         <div className="bg-gray-200 select-none  p-2 relative flex flex-col items-center justify-center min-w-[430px] max-w-[600px] rounded-3xl">
@@ -133,7 +134,7 @@ function SignIn() {
           </div>
             <div  className="my-3 border-none  text-center text-sm text-gray-500">
               Do not have an account?{" "}
-              <a onClick={handleSignUp} aria-label='sign up' className="text-indigo-600 text-sm hover:underline font-medium cursor-pointer">
+              <a onClick={handleSignUp} aria-label='sign up' className="text-indigo-600 hover:underline font-medium cursor-pointer">
                 Sign Up
               </a>
             </div>

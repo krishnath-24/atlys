@@ -39,13 +39,13 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
   const handlePostCreate = async () => {
     if (!selectedEmoji) {
       toast.error("Emoji is required!", {
-        position: 'top-right'
+        position: 'top-center'
       });
       return;
     }
     if (!postContent?.trim()) {
       toast.error("Post content is required!", {
-        position: 'top-right'
+        position: 'top-center'
       });
       return;
     }
@@ -64,7 +64,7 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
 
           dispatch(addPost(postData));
           toast.success("Post created successfully!", {
-            position: 'top-right'
+            position: 'top-center'
           });
           setIsLoading(false);
           resetFormData();
@@ -72,7 +72,7 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
         , 500);
     } catch (error) {
       toast.error("Failed to create post. Please try again.", {
-        position: 'top-right'
+        position: 'top-center'
       })
     }
   }

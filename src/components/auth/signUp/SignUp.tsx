@@ -27,7 +27,7 @@ export default function SignUp() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-  }, 250);
+  }, 150);
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,14 +36,14 @@ export default function SignUp() {
 
     if (!email || !password || !repeatPassword) {
       toast.error("All fields are required",{
-          position: 'top-right'
+          position: 'top-center'
         });
       return;
     }
 
     if (password !== repeatPassword) {
       toast.error("Passwords do not match",{
-        position: 'top-right'
+        position: 'top-center'
       });
       return;
     }
@@ -55,14 +55,14 @@ export default function SignUp() {
         dispatch(setUser(user)); 
         dispatch(closeSignUpDialog());
         toast.success("Account created successfully",{
-          position: 'top-right'
+          position: 'top-center'
         });
         navigate("/feed");
         setIsLoading(false)
     },500)
     } catch (error) {
       toast.error("Failed to create account. Please try again.",{
-        position: 'top-right'
+        position: 'top-center'
       });
     }
   };
@@ -146,7 +146,7 @@ export default function SignUp() {
         <a
           onClick={handleSignIn}
           aria-label="sign in"
-          className=" text-indigo-600 text-sm hover:underline font-medium cursor-pointer"
+          className=" text-indigo-600 hover:underline font-medium cursor-pointer"
         >
           Sign In 
         </a>

@@ -28,7 +28,7 @@ export default function Feed() {
       return;
     }
     toast.error("This feature is not implemented yet. Stay tuned for updates!", {
-      position: 'top-right'
+      position: 'top-center'
     });
   }, [isLoggedIn]);
 

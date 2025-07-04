@@ -33,14 +33,14 @@ export default function Header() {
         setTimeout(() => {
           dispatch(logout());
           toast.success("Logged out successfully", {
-            position: 'bottom-right'
+            position: 'top-center'
           });
           setIsLoading(false);
         }, 400)
         
       } catch (error) {
         toast.error("Failed to logout. Please try again.", {
-          position: 'bottom-right'
+          position: 'top-center'
         });
       }
     }
