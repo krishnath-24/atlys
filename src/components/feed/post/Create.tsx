@@ -155,7 +155,7 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
             <button onClick={featureNotImplemented}><Mic size={20} className="text-gray-500" /></button>
             <button onClick={featureNotImplemented}><Video size={20} className="text-gray-500" /></button>
           </div>
-          <button disabled={isLoading || !selectedEmoji || !postContent} onClick={handlePostCreate}>{isLoading ? <Spinner /> : <SendHorizontal size={22} className="text-blue-600" />}</button>
+          <button disabled={isLoading} onClick={handlePostCreate}>{isLoading ? <Spinner /> : <SendHorizontal size={22} className="text-blue-600" />}</button>
         </div>
       </div>
     </div>
