@@ -8,6 +8,7 @@ import { setUser } from "../../../slices/authSlice";
 import {debounce as _debounce} from 'lodash';
 import { RootState } from "../../../store/store";
 import type { SignUpFormType } from "../../../types/auth.types";
+import Spinner from "../../Spinner";
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function SignUp() {
     password: "",
     repeatPassword: "",
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleChange =  _debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({
@@ -45,15 +47,24 @@ export default function SignUp() {
       });
       return;
     }
+    setIsLoading(true)
     const user = { username: email };
 
-    dispatch(setUser(user)); 
-    dispatch(closeSignUpDialog());
-
-    toast.success("Account created successfully",{
-      position: 'top-right'
-    });
-    navigate("/feed");
+    try {
+      setTimeout(() => {
+        dispatch(setUser(user)); 
+        dispatch(closeSignUpDialog());
+        toast.success("Account created successfully",{
+          position: 'top-right'
+        });
+        navigate("/feed");
+        setIsLoading(false)
+    },500)
+    } catch (error) {
+      toast.error("Failed to create account. Please try again.",{
+        position: 'top-right'
+      });
+    }
   };
 
   const handleSignIn = () => {
@@ -123,9 +134,9 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="rounded-lg w-full bg-indigo-500 text-sm text-white py-3 font-normal hover:bg-indigo-700 transition"
+            className="flex gap-2 items-center justify-center rounded-lg w-full bg-indigo-500 text-sm text-white py-3 font-normal hover:bg-indigo-700 transition"
           >
-            Sign Up
+            Sign Up {isLoading && <Spinner />}
           </button>
         </form>
       </div>
@@ -135,9 +146,9 @@ export default function SignUp() {
         <a
           onClick={handleSignIn}
           aria-label="sign in"
-          className="text-indigo-600 text-sm hover:underline font-medium cursor-pointer"
+          className=" text-indigo-600 text-sm hover:underline font-medium cursor-pointer"
         >
-          Sign In
+          Sign In 
         </a>
       </div>
     </div>

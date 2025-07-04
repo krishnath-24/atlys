@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface User {
   username:string;
@@ -19,7 +19,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser(state, action) {
+    setUser(state, action: PayloadAction<User>) {
       state.user = action.payload
       state.isLoggedIn = true
       localStorage.setItem('user', JSON.stringify(action.payload));

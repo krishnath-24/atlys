@@ -9,6 +9,7 @@ import { RootState } from '../../../store/store';
 import { isTestAccount } from '../../../utils/common';
 import {debounce as _debounce} from 'lodash';
 import type { SignInFormType } from '../../../types/auth.types';
+import Spinner from '../../Spinner';
 
 
 function SignIn() {
@@ -62,13 +63,12 @@ function SignIn() {
           position: 'top-right'
         })
       }
-    }, 300)
+      setIsLoading(false);
+    }, 500)
     } catch (error) {
       toast.error('Unable to Login!',{
           position: 'top-right'
       });
-    } finally {
-      setIsLoading(false);
     }
   }
 
@@ -122,11 +122,11 @@ function SignIn() {
               <button
                 aria-label='sign in'
                 type="submit"
-                className="rounded-lg w-full bg-indigo-500 text-sm text-white py-3 font-normal hover:bg-indigo-700 transition"
+                className="rounded-lg flex gap-2 items-center justify-center w-full bg-indigo-500 text-sm text-white py-3 font-normal hover:bg-indigo-700 transition"
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
-                Sign In
+                Sign In {isLoading && <Spinner />}
               </button>
             </form>
            
