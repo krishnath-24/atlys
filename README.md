@@ -12,7 +12,8 @@ Mini app for atlys
 
 ## 📸 Screenshots / Link
 
-- Live app: [https://atlys-fe-app.netlify.app/](https://atlys-fe-app.netlify.app/)
+- Live app: [Netlify](https://atlys-fe-app.netlify.app/)
+https://www.loom.com/share/f1b4ba6ab2bc4889b6d4b35720a7c1b2?sid=5e28d096-6cd0-4910-9c18-fd888e413143
 
 - ![Sign in](./app-screenshots/image.png)
 - ![Sign up](./app-screenshots/image-2.png)
