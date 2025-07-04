@@ -19,6 +19,7 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
   const [postContent, setPostContent] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {isLoggedIn} = useSelector((state: RootState) => state.auth);
 
 
   const dispatch = useDispatch();
@@ -77,9 +78,16 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
     }
   }
 
+  const handleOnFocus = () => {
+    if(!isLoggedIn) {
+      return;
+    }
+    setIsFocused(true);
+  }
+
 
   return (
-    <div className="p-2 bg-gray-100 rounded-2xl mb-6 select-none" onClick={onClick} onFocus={() => setIsFocused(true)}
+    <div className="p-2 bg-gray-100 rounded-2xl mb-6 select-none" onClick={onClick} onFocus={handleOnFocus}
       onBlur={() => setIsFocused(false)}>
       <div className="w-full max-w-2xl mx-auto bg-gray-50 rounded-xl shadow-md bg-white  ">
         <div className="p-2 space-y-3">
@@ -147,7 +155,7 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
             <button onClick={featureNotImplemented}><Mic size={20} className="text-gray-500" /></button>
             <button onClick={featureNotImplemented}><Video size={20} className="text-gray-500" /></button>
           </div>
-          <button onClick={handlePostCreate}>{isLoading ? <Spinner /> : <SendHorizontal size={22} className="text-blue-600" />}</button>
+          <button disabled={isLoading || !selectedEmoji || !postContent} onClick={handlePostCreate}>{isLoading ? <Spinner /> : <SendHorizontal size={22} className="text-blue-600" />}</button>
         </div>
       </div>
     </div>
