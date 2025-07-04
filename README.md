@@ -3,9 +3,11 @@ Mini app for atlys
 
 ## 🛠️ Features
 
-- Sign In / Sign Up modal with animation
+- Sign In / Sign Up modal
+- Feed page for all posts
 - Post creation and listing with animated transitions
 - State management via Redux
+- persisting post in localStorage
 - Responsive UI with Tailwind CSS
 
 ## 📸 Screenshots / Link

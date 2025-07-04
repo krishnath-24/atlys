@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { LogIn, LogOut } from "lucide-react"
 import { logout } from '../../slices/authSlice'
 import { RootState } from '../../store/store'
+import toast from "react-hot-toast"
 
 export default function Header() {
     const dispatch = useDispatch()
@@ -24,7 +25,16 @@ export default function Header() {
     }
 
     const handleLogout = () => {
-      dispatch(logout());
+      try {
+        dispatch(logout());
+        toast.success("Logged out successfully", {
+          position: 'top-right'
+        });
+      } catch (error) {
+        toast.error("Failed to logout. Please try again.", {
+          position: 'top-right'
+        });
+      }
     }
     return (
       <header className="flex justify-between items-center px-6 py-4 border-b sticky top-0 backdrop-blur-[5px]">

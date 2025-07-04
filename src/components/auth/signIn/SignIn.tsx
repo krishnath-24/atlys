@@ -19,6 +19,7 @@ function SignIn() {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
@@ -35,7 +36,7 @@ function SignIn() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+    setIsLoading(true);
     const { email: username, password } = formData;
 
     if (!username || !password) {
@@ -66,6 +67,8 @@ function SignIn() {
       toast.error('Unable to Login!',{
           position: 'top-right'
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -91,6 +94,8 @@ function SignIn() {
               <div>
                 <label className="block text-xs font-medium mb-1">Email or username</label>
                 <input
+                  aria-label='email or username'
+                  id='email'
                   className="rounded-lg text-xs font-light w-full px-4 py-3 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   type="email"
                   name='email'
@@ -103,6 +108,7 @@ function SignIn() {
               <div>
                 <label className="block text-xs font-medium mb-1">Password</label>
                 <input
+                  aria-label='password'
                   className="rounded-lg   text-xs font-light w-full px-4 py-3 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   type="password"
                   name='password'
@@ -114,9 +120,11 @@ function SignIn() {
               </div>
     
               <button
+                aria-label='sign in'
                 type="submit"
                 className="rounded-lg w-full bg-indigo-500 text-sm text-white py-3 font-normal hover:bg-indigo-700 transition"
                 onClick={handleSubmit}
+                disabled={isLoading}
               >
                 Sign In
               </button>
