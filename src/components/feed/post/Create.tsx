@@ -38,6 +38,9 @@ export default function PostComposer({ onClick, featureNotImplemented }: CreateP
   }
 
   const handlePostCreate = async () => {
+    if(!isLoggedIn) {
+      return;
+    }
     if (!selectedEmoji) {
       toast.error("Emoji is required!", {
         position: 'top-center'
