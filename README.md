@@ -12,16 +12,16 @@ Mini app for atlys
 
 - Live app: [https://atlys-fe-app.netlify.app/](https://atlys-fe-app.netlify.app/)
 
-- ![Sign in](image.png)
-- ![Sign up](image-2.png)
-- ![Feed](image-1.png)
-- ![Sign in page](image-3.png)
-- ![Sign up page](image-4.png)
+- ![Sign in](./app-screenshots/image.png)
+- ![Sign up](./app-screenshots/image-2.png)
+- ![Feed](./app-screenshots/image-1.png)
+- ![Sign in page](./app-screenshots/image-3.png)
+- ![Sign up page](./app-screenshots/image-4.png)
 
 ## 🧑‍💻 Getting Started
 
 1. **Clone the repository**  
-   `git clone https://github.com/your-username/atlys-mini-app.git`
+   `git clone https://github.com/krishnath-24/atlys.git`
 
 2. **Install dependencies**  
    `npm install`
